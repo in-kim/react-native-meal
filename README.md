@@ -10,7 +10,12 @@ npm install
 yarn install
 ```
 3. android, Ios 앱 실행
-터미널 창에서 I(IOS), A(Android) 입력
+```bash
+npm run start
+# or
+yarn start
+```
+위 명령어 실행 후 터미널 창에서 I(IOS), A(Android) 입력
 
 ## Preview
 ### Android

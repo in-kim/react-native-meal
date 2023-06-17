@@ -5,21 +5,30 @@ import {MEALS} from "../data/dummy-data";
 import SubTitle from "../components/MealDetail/SubTItle";
 import MealDetailList from "../components/MealDetail/List";
 import IconButton from "../components/IconButton";
+import {useDispatch, useSelector} from "react-redux";
+import {addFavorite, removeFavorite} from "../store/favoriteStore";
 
 export default function MealDetailScreen({route, navigation}){
   const mealId = route.params.mealId
 
-  const selectedMeal = MEALS.find(meal => meal.id === mealId)
+  const selectedMeal = MEALS.find(meal => meal.id === mealId);
+  const dispatch = useDispatch();
+  const favoriteMeals = useSelector(state => state.favoriteMeals.ids);
+  const isFavorite = favoriteMeals.includes(mealId);
 
   const headerButtonPressHandler = () => {
-    console.log('onPress');
+    if(isFavorite){
+      dispatch(removeFavorite(mealId));
+    }else{
+      dispatch(addFavorite(mealId));
+    }
   }
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => <IconButton onPress={headerButtonPressHandler} color="white" size={24} />
+      headerRight: () => <IconButton onPress={headerButtonPressHandler} color="white" size={24} name={isFavorite ? 'star' : 'star-outline'}/>
     })
-  }, [])
+  }, [favoriteMeals])
   return (
     <ScrollView style={styles.rootContainer}>
       <Image source={{uri: selectedMeal.imageUrl}} style={styles.image}/>

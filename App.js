@@ -9,6 +9,7 @@ import MealDetailScreen from "./screen/MealDetailScreen";
 
 import {Ionicons} from "@expo/vector-icons";
 import FavoriteScreen from "./screen/FavoriteScreen";
+import FavoriteContextProvider from "./store/context";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -49,7 +50,7 @@ function DrawerNavigation(){
 
 export default function App() {
   return (
-    <>
+    <FavoriteContextProvider>
       <StatusBar style="light" />
       <NavigationContainer>
         <Stack.Navigator screenOptions={{
@@ -66,7 +67,7 @@ export default function App() {
           <Stack.Screen name="MealDetailView" component={MealDetailScreen} />
         </Stack.Navigator>
       </NavigationContainer>
-    </>
+    </FavoriteContextProvider>
   )
 }
 
